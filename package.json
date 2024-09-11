@@ -1,0 +1,26 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axelNTI/portfolio.git"
+  },
+  "author": "Axel Thornberg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/axelNTI/portfolio/issues"
+  },
+  "homepage": "https://github.com/axelNTI/portfolio#readme",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^5.0.0",
+    "express-session": "^1.18.0",
+    "handlebars": "^4.7.8",
+    "hbs": "^4.2.0"
+  }
+}
