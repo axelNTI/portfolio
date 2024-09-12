@@ -33,7 +33,6 @@ const renderPage = (req, res, page) => {
   const userLang = req.acceptsLanguages("en", "sv") || "en";
   const langFile = fs.readFileSync(path.join(__dirname, `./locales/${userLang}.yml`), "utf8");
   const returnLang = yaml.load(langFile);
-  console.log(returnLang);
   res.render(page, { query: req.query, session: req.session, jsEnabled: js, lang: returnLang });
 };
 
