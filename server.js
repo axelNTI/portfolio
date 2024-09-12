@@ -2,33 +2,51 @@ const express = require("express");
 const session = require("express-session");
 const dotenv = require("dotenv");
 const WebSocket = require("ws");
+const path = require("path");
+const cookies = require("cookie-parser");
+const yaml = require("js-yaml");
+const fs = require("fs");
 
 const app = express();
-dotenv.config({ path: ".env" });
+dotenv.config({ path: path.join(__dirname, ".env") });
 
 app.set("view engine", "hbs");
-
+app.set("views", path.join(__dirname, "views"));
 app.use(
   session({
     secret: process.env.EXPRESS_SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
   })
 );
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(cookies());
+
+const renderPage = (req, res, page) => {
+  if (req.cookies && req.cookies.jsEnabled === undefined) {
+    res.render("cookies", { redirect: page });
+    return;
+  }
+  const js = (req.cookies && req.cookies.jsEnabled) || false;
+  const userLang = req.acceptsLanguages("en", "sv") || "en";
+  const langFile = fs.readFileSync(path.join(__dirname, `./locales/${userLang}.yml`), "utf8");
+  const returnLang = yaml.load(langFile);
+  console.log(returnLang);
+  res.render(page, { query: req.query, session: req.session, jsEnabled: js, lang: returnLang });
+};
 
 app.get("/", (req, res) => {
-  res.render("index", { user: req.session, query: req.query });
+  renderPage(req, res, "index");
 });
 
 app.get("/404", (req, res) => {
-  res.render("404", { user: req.session, query: req.query });
+  renderPage(req, res, "404");
 });
 
 app.use((req, res) => {
+  res.status(404);
   res.redirect("/404");
 });
 
