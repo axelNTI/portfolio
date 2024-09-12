@@ -1,6 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const dotenv = require("dotenv");
+const WebSocket = require("ws");
 
 const app = express();
 dotenv.config({ path: ".env" });
