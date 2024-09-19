@@ -25,10 +25,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookies());
 
 const renderPage = (req, res, page) => {
-  if (req.cookies && req.cookies.jsEnabled === undefined) {
-    res.render("cookies", { redirect: page });
-    return;
-  }
   const js = (req.cookies && req.cookies.jsEnabled) || false;
   const userLang = req.acceptsLanguages("en", "sv") || "en";
   const langFile = fs.readFileSync(path.join(__dirname, `./locales/${userLang}.yml`), "utf8");
