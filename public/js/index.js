@@ -1,4 +1,3 @@
 $(() => {
-  document.cookie = "jsEnabled=true";
-  const ws = new WebSocket("ws://localhost:8080?=index");
+  const ws = new WebSocket("ws://localhost:8080?page=index");
 });

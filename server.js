@@ -24,12 +24,25 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookies());
 
+const wss = new WebSocket.Server({ port: 8080 });
+
+const connections = new Map();
+
+wss.on("connection", (ws, req) => {
+  const query = req.url.split("?");
+  query.shift();
+  const params = {};
+  query.forEach((item) => {
+    const [key, value] = item.split("=");
+    params[key] = value;
+  });
+});
+
 const renderPage = (req, res, page) => {
-  const js = (req.cookies && req.cookies.jsEnabled) || false;
   const userLang = req.acceptsLanguages("en", "sv") || "en";
-  const langFile = fs.readFileSync(path.join(__dirname, `./locales/${userLang}.yml`), "utf8");
+  const langFile = fs.readFileSync(path.join(__dirname, `./locale/${userLang}.yml`), "utf8");
   const returnLang = yaml.load(langFile);
-  res.render(page, { query: req.query, session: req.session, jsEnabled: js, lang: returnLang });
+  res.render(page, { query: req.query, session: req.session, lang: returnLang });
 };
 
 app.get("/", (req, res) => {
