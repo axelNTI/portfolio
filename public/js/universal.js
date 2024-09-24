@@ -1,0 +1,5 @@
+$(() => {
+  $(".script").css({
+    display: "block",
+  });
+});

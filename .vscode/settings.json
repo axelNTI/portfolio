@@ -1,7 +1,5 @@
 {
   "workbench.startupEditor": "none",
-  // "editor.fontFamily": "Orbitron Black",
-  // "editor.fontFamily": "Marlett",
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 500,
   "workbench.iconTheme": "vscode-icons",
@@ -15,10 +13,10 @@
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
   "[python]": {
-    "editor.defaultFormatter": "ms-python.black-formatter",
-    "editor.formatOnSave": true
+    "editor.defaultFormatter": "ms-python.black-formatter"
   },
   "black-formatter.args": ["--line-length", "200"],
   "html.format.wrapLineLength": 200,
-  "prettier.printWidth": 200
+  "prettier.printWidth": 200,
+  "prettier.trailingComma": "all"
 }
