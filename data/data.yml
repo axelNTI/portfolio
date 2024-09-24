@@ -1,0 +1,16 @@
+courses:
+  - name: "TE4"
+    path: "te4"
+    projects:
+      - name: "project_1"
+        image: "project1.jpg"
+        description: "project_1_description"
+      - name: "project_2"
+        image: "project2.jpg"
+        description: "project_2_description"
+  - name: "webbserverprogramming_1"
+    path: "webbserverprogramming_1"
+    projects:
+      - name: "project_1"
+        image: "project1.jpg"
+        description: "project_1_description"

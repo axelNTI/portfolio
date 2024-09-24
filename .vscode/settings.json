@@ -18,5 +18,6 @@
   "black-formatter.args": ["--line-length", "200"],
   "html.format.wrapLineLength": 200,
   "prettier.printWidth": 200,
-  "prettier.trailingComma": "all"
+  "prettier.trailingComma": "all",
+  "javascript.suggestionActions.enabled": false
 }
