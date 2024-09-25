@@ -17,6 +17,8 @@
   "homepage": "https://github.com/axelNTI/portfolio#readme",
   "description": "",
   "dependencies": {
+    "@types/bootstrap": "^5.2.10",
+    "@types/jquery": "^3.5.30",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
     "express": "^5.0.0",

@@ -61,12 +61,28 @@ const renderPage = (req, res, page) => {
   res.render(page, { query: req.query, session: req.session, lang: returnLang, data: returnData });
 };
 
-// app.get("/style.css", (req, res) => {
-//     res.setHeader('Content-Type', 'text/css');
-//     res.send(
-//         "body {   background-color: #ff00ff;    font-family: Arial, sans-serif;}"
-//     );
-// });
+app.get("/ts/:file", (req, res) => {
+  const file = req.params.file;
+  const tsFile = fs.readFileSync(path.join(__dirname, `./ts/${file}`), "utf8");
+  const options = {
+    module: ts.ModuleKind.CommonJS,
+    target: ts.ScriptTarget.ES5,
+  };
+  const result = ts.transpileModule(tsFile, options);
+  res.setHeader("Content-Type", "text/javascript");
+  res.send(result.outputText);
+});
+
+app.get("/scss/:file", (req, res) => {
+  const file = req.params.file;
+  const scss = fs.readFileSync(path.join(__dirname, `./scss/${file}`), "utf8");
+  const result = sass.compileString(scss, {
+    sourceMap: true,
+    loadPaths: [path.join(__dirname, "scss")],
+  });
+  res.setHeader("Content-Type", "text/css");
+  res.send(result.css);
+});
 
 app.get("/", (req, res) => {
   renderPage(req, res, "index");
