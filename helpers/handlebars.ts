@@ -3,6 +3,4 @@ const translate = (key, options) => {
   return lang[key] || key;
 };
 
-module.exports = {
-  translate,
-};
+module.exports = { translate };

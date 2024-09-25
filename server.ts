@@ -6,19 +6,15 @@ const path = require("path");
 const cookies = require("cookie-parser");
 const yaml = require("js-yaml");
 const fs = require("fs");
-const handlebars = require("hbs");
+const hbs = require("hbs");
+const sass = require("sass");
+const ts = require("typescript");
 
-var _ = require("lodash");
-var _ = require("lodash/core");
-var fp = require("lodash/fp");
-var array = require("lodash/array");
-var object = require("lodash/fp/object");
-var at = require("lodash/at");
-var curryN = require("lodash/fp/curryN");
+const _ = require("lodash");
 
-const { translate } = require("./helpers/handlebars");
+const handlebars = require("./helpers/handlebars.ts");
 
-handlebars.registerHelper("translate", translate);
+hbs.registerHelper("translate", handlebars.translate);
 
 const app = express();
 dotenv.config({ path: path.join(__dirname, ".env") });
@@ -64,6 +60,13 @@ const renderPage = (req, res, page) => {
   const returnData = yaml.load(dataFile);
   res.render(page, { query: req.query, session: req.session, lang: returnLang, data: returnData });
 };
+
+// app.get("/style.css", (req, res) => {
+//     res.setHeader('Content-Type', 'text/css');
+//     res.send(
+//         "body {   background-color: #ff00ff;    font-family: Arial, sans-serif;}"
+//     );
+// });
 
 app.get("/", (req, res) => {
   renderPage(req, res, "index");
