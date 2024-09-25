@@ -52,8 +52,10 @@ wss.on("connection", (ws, req) => {
   });
 });
 
+const acceptedLanguages = fs.readdirSync(path.join(__dirname, "./locale")).map((file) => file.split(".")[0]);
+
 const renderPage = (req, res, page) => {
-  const userLang = req.acceptsLanguages("en", "sv") || "en";
+  const userLang = req.acceptsLanguages(...acceptedLanguages) || "en";
   const langFile = fs.readFileSync(path.join(__dirname, `./locale/${userLang}.yml`), "utf8");
   const returnLang = yaml.load(langFile);
   const dataFile = fs.readFileSync(path.join(__dirname, "./data/data.yml"), "utf8");
@@ -75,8 +77,8 @@ app.get("/ts/:file", (req, res) => {
 
 app.get("/scss/:file", (req, res) => {
   const file = req.params.file;
-  const scss = fs.readFileSync(path.join(__dirname, `./scss/${file}`), "utf8");
-  const result = sass.compileString(scss, {
+  const scssFile = fs.readFileSync(path.join(__dirname, `./scss/${file}`), "utf8");
+  const result = sass.compileString(scssFile, {
     sourceMap: true,
     loadPaths: [path.join(__dirname, "scss")],
   });
