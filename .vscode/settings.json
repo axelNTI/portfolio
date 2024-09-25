@@ -19,5 +19,6 @@
   "html.format.wrapLineLength": 200,
   "prettier.printWidth": 200,
   "prettier.trailingComma": "all",
-  "javascript.suggestionActions.enabled": false
+  "javascript.suggestionActions.enabled": false,
+  "typescript.suggestionActions.enabled": false
 }

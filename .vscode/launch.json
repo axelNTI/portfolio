@@ -5,7 +5,7 @@
       "name": "Run Server",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/server.js",
+      "program": "${workspaceFolder}/server.ts",
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",

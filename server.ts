@@ -1,16 +1,24 @@
 const express = require("express");
 const session = require("express-session");
 const dotenv = require("dotenv");
-const WebSocket = require("ws");
+const websocket = require("ws");
 const path = require("path");
 const cookies = require("cookie-parser");
 const yaml = require("js-yaml");
 const fs = require("fs");
-const Handlebars = require("handlebars");
+const handlebars = require("hbs");
+
+var _ = require("lodash");
+var _ = require("lodash/core");
+var fp = require("lodash/fp");
+var array = require("lodash/array");
+var object = require("lodash/fp/object");
+var at = require("lodash/at");
+var curryN = require("lodash/fp/curryN");
 
 const { translate } = require("./helpers/handlebars");
 
-Handlebars.registerHelper("translate", translate);
+handlebars.registerHelper("translate", translate);
 
 const app = express();
 dotenv.config({ path: path.join(__dirname, ".env") });
@@ -30,7 +38,7 @@ app.use(
   }),
 );
 
-const wss = new WebSocket.Server({ port: 8080 });
+const wss = new websocket.Server({ port: 8080 });
 
 const connections = new Map();
 
@@ -54,8 +62,6 @@ const renderPage = (req, res, page) => {
   const returnLang = yaml.load(langFile);
   const dataFile = fs.readFileSync(path.join(__dirname, "./data/data.yml"), "utf8");
   const returnData = yaml.load(dataFile);
-  console.log(typeof returnData.courses);
-
   res.render(page, { query: req.query, session: req.session, lang: returnLang, data: returnData });
 };
 

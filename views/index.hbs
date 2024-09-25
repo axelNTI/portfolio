@@ -21,11 +21,9 @@
     <main>
       {{#each data.courses}}
         <h2>{{translate this.name}}</h2>
-        <p>Path: {{this.path}}</p>
         {{#each this.projects}}
-          <h3>{{this.name}}</h3>
-          <p>Image: {{this.image}}</p>
-          <p>Description: {{this.description}}</p>
+          <h3>{{translate this.name}}</h3>
+          <p>Description: {{translate this.description}}</p>
         {{/each}}
       {{/each}}
     </main>
