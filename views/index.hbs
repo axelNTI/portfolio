@@ -24,7 +24,14 @@
         <h2>{{translate this.name}}</h2>
         {{#each this.projects}}
           <h3>{{translate this.name}}</h3>
-          <p>Description: {{translate this.description}}</p>
+          <p>{{@root.lang.description}}: {{translate this.description}}</p>
+          <p>{{@root.lang.type}}: {{translate this.type}}</p>
+          <p>{{@root.lang.technologies}}:</p>
+          <ul>
+            {{#each this.technologies}}
+              <li>{{translate this}}</li>
+            {{/each}}
+          </ul>
         {{/each}}
       {{/each}}
     </main>
