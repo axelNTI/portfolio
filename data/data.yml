@@ -4,12 +4,12 @@ courses:
       - name: "ntb_car_rental"
         image: "ntb_car_rental.jpg"
         description: "ntb_car_rental_description"
-        technologies: ["HTML", "CSS", "JavaScript", "Handlebars", "Node.js", "yaml", "Python", "Playwright", "Github Actions"]
+        technologies: ["HTML", "CSS", "JavaScript", "Handlebars", "Node.js", "yaml", "Python", "Playwright Python", "Github Actions"]
         type: "group"
       - name: "florista"
         image: "florista.jpg"
         description: "florista_description"
-        technologies: ["HTML", "CSS", "JavaScript", "yaml", "Python", "Playwright", "Github Actions"]
+        technologies: ["HTML", "CSS", "JavaScript", "yaml", "Python", "Playwright Python", "Github Actions"]
         type: "group"
   - name: "webbserverprogramming_1"
     projects:
@@ -22,5 +22,5 @@ courses:
     projects:
       - name: "portfolio"
         description: "portfolio_description"
-        technologies: ["Handlebars", "SCSS", "TypeScript", "Node.js", "Express", "yaml", "JQuery"]
+        technologies: ["Handlebars", "SCSS", "TypeScript", "Node.js", "Express", "yaml", "JQuery", "Playwright", "Github Actions"]
         type: "solo"
