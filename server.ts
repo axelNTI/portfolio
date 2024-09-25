@@ -9,7 +9,6 @@ const fs = require("fs");
 const hbs = require("hbs");
 const sass = require("sass");
 const ts = require("typescript");
-
 const _ = require("lodash");
 
 const handlebars = require("./helpers/handlebars.ts");
@@ -19,6 +18,13 @@ hbs.registerHelper("translate", handlebars.translate);
 const app = express();
 dotenv.config({ path: path.join(__dirname, ".env") });
 
+const sessionParser = session({
+  secret: process.env.EXPRESS_SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false }, // Change to true when using HTTPS
+});
+
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
 
@@ -26,31 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookies());
-app.use(
-  session({
-    secret: process.env.EXPRESS_SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-  }),
-);
-
-const wss = new websocket.Server({ port: 8080 });
-
-const connections = new Map();
-
-wss.on("connection", (ws, req) => {
-  const query = req.url.split("?");
-  query.shift();
-  const params = {};
-  query.forEach((item) => {
-    const [key, value] = item.split("=");
-    params[key] = value;
-  });
-  connections.set(ws, params);
-  ws.on("close", () => {
-    connections.delete(ws);
-  });
-});
+app.use(sessionParser);
 
 const acceptedLanguages = fs.readdirSync(path.join(__dirname, "./locale")).map((file) => file.split(".")[0]);
 
@@ -60,6 +42,11 @@ const renderPage = (req, res, page) => {
   const returnLang = yaml.load(langFile);
   const dataFile = fs.readFileSync(path.join(__dirname, "./data/data.yml"), "utf8");
   const returnData = yaml.load(dataFile);
+
+  const ws = [...connections.values()].find((connection) => connection.sessionID === req.sessionID || req.session.id);
+
+  console.log(ws);
+
   res.render(page, { query: req.query, session: req.session, lang: returnLang, data: returnData });
 };
 
@@ -99,6 +86,46 @@ app.use((req, res) => {
   res.redirect("/404");
 });
 
-app.listen(4000, () => {
+// Start the Express server
+const server = app.listen(4000, () => {
   console.log("Server running at http://localhost:4000");
+});
+
+const wss = new websocket.Server({ noServer: true });
+const connections = new Map();
+
+wss.on("connection", (ws, req) => {
+  sessionParser(req, {}, () => {
+    const sessionID = req.sessionID || req.session.id; // Use session ID from express-session
+
+    // Parse query parameters from WebSocket request URL
+    const query = req.url.split("?");
+    query.shift();
+    const params = {};
+    query.forEach((item) => {
+      const [key, value] = item.split("=");
+      params[key] = value;
+    });
+
+    // Store WebSocket connection, session ID, and params
+    connections.set(ws, { sessionID, params, session: req.session });
+
+    ws.on("close", () => {
+      connections.delete(ws);
+    });
+  });
+});
+
+// Handle WebSocket upgrade requests
+server.on("upgrade", (req, socket, head) => {
+  sessionParser(req, {}, () => {
+    if (!req.session) {
+      socket.destroy();
+      return;
+    }
+
+    wss.handleUpgrade(req, socket, head, (ws) => {
+      wss.emit("connection", ws, req);
+    });
+  });
 });

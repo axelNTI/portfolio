@@ -1,3 +1,3 @@
 $(() => {
-  const ws = new WebSocket("ws://localhost:8080?page=index");
+  const ws = new WebSocket("ws://localhost:4000?page=index");
 });
