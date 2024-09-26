@@ -12,7 +12,7 @@ const sendViewportDimensions = () => {
 };
 
 const debounce = (func: Function, wait: number) => {
-  let timeout: ReturnType<typeof setTimeout>;
+  let timeout: NodeJS.Timeout;
   return (...args: any[]) => {
     clearTimeout(timeout);
     timeout = setTimeout(() => func.apply(this, args), wait);
@@ -21,7 +21,7 @@ const debounce = (func: Function, wait: number) => {
 
 $(() => {
   $(".script").css({
-    display: "block",
+    display: "block", // Perhaps change this to "initial"?
   });
   sendViewportDimensions();
   $(window).on("resize", debounce(sendViewportDimensions, 200));
