@@ -9,6 +9,7 @@ const fs = require("fs");
 const hbs = require("hbs");
 const sass = require("sass");
 const ts = require("typescript");
+const sharp = require("sharp");
 const _ = require("lodash");
 
 const handlebars = require("./helpers/handlebars.ts");
@@ -73,6 +74,10 @@ app.get("/scss/:file", (req, res) => {
   res.send(result.css);
 });
 
+app.get("/assets/images/:file", (req, res) => {
+  // Get the users viewport size and the image's vw and vh sizes.
+});
+
 app.get("/", (req, res) => {
   renderPage(req, res, "index");
 });
@@ -86,7 +91,6 @@ app.use((req, res) => {
   res.redirect("/404");
 });
 
-// Start the Express server
 const server = app.listen(4000, () => {
   console.log("Server running at http://localhost:4000");
 });
@@ -96,9 +100,8 @@ const connections = new Map();
 
 wss.on("connection", (ws, req) => {
   sessionParser(req, {}, () => {
-    const sessionID = req.sessionID || req.session.id; // Use session ID from express-session
+    const sessionID = req.sessionID || req.session.id;
 
-    // Parse query parameters from WebSocket request URL
     const query = req.url.split("?");
     query.shift();
     const params = {};
@@ -107,7 +110,6 @@ wss.on("connection", (ws, req) => {
       params[key] = value;
     });
 
-    // Store WebSocket connection, session ID, and params
     connections.set(ws, { sessionID, params, session: req.session });
 
     ws.on("close", () => {
@@ -116,7 +118,6 @@ wss.on("connection", (ws, req) => {
   });
 });
 
-// Handle WebSocket upgrade requests
 server.on("upgrade", (req, socket, head) => {
   sessionParser(req, {}, () => {
     if (!req.session) {
