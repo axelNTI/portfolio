@@ -88,7 +88,11 @@ app.get("/404", (req, res) => {
 
 app.post("/POST/viewport", (req, res) => {
   // Save the viewport dimensions to the session.
-  // console.log(req.body);
+  req.session.viewport = { vw: req.body.vw, vh: req.body.vh };
+  req.session.save((err) => {
+    console.error(err);
+    return res.status(500).send("Error saving viewport dimensions.");
+  });
 });
 
 app.use((req, res) => {
