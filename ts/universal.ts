@@ -2,7 +2,7 @@ const sendViewportDimensions = () => {
   const vw = $(window).width();
   const vh = $(window).height();
   $.ajax({
-    url: "",
+    url: "POST/viewport",
     method: "POST",
     data: {
       vw,

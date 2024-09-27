@@ -86,6 +86,11 @@ app.get("/404", (req, res) => {
   renderPage(req, res, "404");
 });
 
+app.post("/POST/viewport", (req, res) => {
+  // Save the viewport dimensions to the session.
+  // console.log(req.body);
+});
+
 app.use((req, res) => {
   res.status(404);
   res.redirect("/404");
