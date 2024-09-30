@@ -44,10 +44,6 @@ const renderPage = (req, res, page) => {
   const dataFile = fs.readFileSync(path.join(__dirname, "./data/data.yml"), "utf8");
   const returnData = yaml.load(dataFile);
 
-  const ws = [...connections.values()].find((connection) => connection.sessionID === req.sessionID || req.session.id);
-
-  console.log(ws);
-
   res.render(page, { query: req.query, session: req.session, lang: returnLang, data: returnData });
 };
 
