@@ -38,6 +38,7 @@ app.use(sessionParser);
 const acceptedLanguages = fs.readdirSync(path.join(__dirname, "./locale")).map((file) => file.split(".")[0]);
 
 const renderPage = (req, res, page) => {
+  console.log(req.session.viewport);
   const userLang = req.acceptsLanguages(...acceptedLanguages) || "en";
   const langFile = fs.readFileSync(path.join(__dirname, `./locale/${userLang}.yml`), "utf8");
   const returnLang = yaml.load(langFile);
@@ -71,6 +72,8 @@ app.get("/scss/:file", (req, res) => {
 });
 
 app.get("/assets/images/:file", (req, res) => {
+  console.log("Image request received.");
+  console.log(req.session.viewport);
   // Get the users viewport size and the image's vw and vh sizes.
 });
 
@@ -84,10 +87,15 @@ app.get("/404", (req, res) => {
 
 app.post("/POST/viewport", (req, res) => {
   // Save the viewport dimensions to the session.
-  req.session.viewport = { vw: req.body.vw, vh: req.body.vh };
+  console.log("Viewport dimensions received.");
+  req.session.viewport = { width: req.body.width, height: req.body.height, rem: req.body.rem };
+  console.log(req.session.viewport);
   req.session.save((err) => {
-    console.error(err);
-    return res.status(500).send("Error saving viewport dimensions.");
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Error saving viewport dimensions.");
+    }
+    return res.status(200).send("Viewport dimensions saved.");
   });
 });
 
