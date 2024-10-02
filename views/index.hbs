@@ -21,19 +21,20 @@
       </h1>
     </header>
     <main>
-      {{#each data.courses}}
+
+      {{#each data.projects}}
         <h2>{{translate this.name}}</h2>
-        {{#each this.projects}}
-          <h3>{{translate this.name}}</h3>
-          <p>{{@root.lang.description}}: {{translate this.description}}</p>
-          <p>{{@root.lang.type}}: {{translate this.type}}</p>
-          <p>{{@root.lang.technologies}}:</p>
-          <ul>
-            {{#each this.technologies}}
-              <li>{{translate this}}</li>
-            {{/each}}
-          </ul>
-        {{/each}}
+        <p>{{@root.lang.description}}: {{translate this.description}}</p>
+        <p>{{@root.lang.type}}: {{translate this.type}}</p>
+        {{#if this.course}}
+          <p>{{@root.lang.course}}: {{translate this.course}}</p>
+        {{/if}}
+        <p>{{@root.lang.technologies}}:</p>
+        <ul>
+          {{#each this.technologies}}
+            <li>{{translate this}}</li>
+          {{/each}}
+        </ul>
       {{/each}}
     </main>
     <footer>

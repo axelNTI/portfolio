@@ -1,26 +1,20 @@
-courses:
-  - name: "te4"
-    projects:
-      - name: "ntb_car_rental"
-        image: "ntb_car_rental.jpg"
-        description: "ntb_car_rental_description"
-        technologies: ["HTML", "CSS", "JavaScript", "Handlebars", "Node.js", "yaml", "Python", "Playwright Python", "Github Actions", "nginx"]
-        type: "group"
-      - name: "florista"
-        image: "florista.jpg"
-        description: "florista_description"
-        technologies: ["HTML", "CSS", "JavaScript", "yaml", "Python", "Playwright Python", "Github Actions"]
-        type: "group"
-  - name: "webbserverprogramming_1"
-    projects:
-      - name: "webbserverprogramming_final_project"
-        image: "project1.jpg"
-        description: "webbserverprogramming_final_project_description"
-        technologies: ["Handlebars", "CSS", "SCSS", "JavaScript", "Node.js", "Express", "MySQL", "Bootstrap", "JQuery", "discord.js"]
-        type: "solo"
-  - name: "other"
-    projects:
-      - name: "portfolio"
-        description: "portfolio_description"
-        technologies: ["Handlebars", "SCSS", "TypeScript", "Node.js", "Express", "yaml", "JQuery", "Playwright", "Github Actions"]
-        type: "solo"
+projects:
+  - name: "florista"
+    description: "florista_description"
+    technologies: ["HTML", "CSS", "JavaScript", "yaml", "Python", "Playwright Python", "Github Actions"]
+    type: "group"
+    course: "te4"
+  - name: "ntb_car_rental"
+    description: "ntb_car_rental_description"
+    technologies: ["HTML", "CSS", "JavaScript", "Handlebars", "Node.js", "yaml", "Python", "Playwright Python", "Github Actions", "nginx"]
+    type: "group"
+    course: "te4"
+  - name: "webbserverprogramming_final_project"
+    description: "webbserverprogramming_final_project_description"
+    technologies: ["Handlebars", "CSS", "SCSS", "JavaScript", "Node.js", "Express", "MySQL", "Bootstrap", "JQuery", "discord.js"]
+    type: "solo"
+    course: "webbserverprogramming_1"
+  - name: "portfolio"
+    description: "portfolio_description"
+    technologies: ["Handlebars", "SCSS", "TypeScript", "Node.js", "Express", "yaml", "JQuery", "Playwright", "Github Actions"]
+    type: "solo"
