@@ -1,24 +1,25 @@
 {
-  "workbench.startupEditor": "none",
-  "files.autoSave": "afterDelay",
-  "files.autoSaveDelay": 500,
-  "workbench.iconTheme": "vscode-icons",
-  "workbench.colorTheme": "Noctis High Contrast",
-  "prettier.tabWidth": 2,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "notebook.defaultFormatter": "esbenp.prettier-vscode",
-  "prettier.bracketSameLine": true,
-  "editor.defaultFoldingRangeProvider": "esbenp.prettier-vscode",
-  "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
-  "editor.formatOnType": true,
-  "[python]": {
-    "editor.defaultFormatter": "ms-python.black-formatter"
-  },
-  "black-formatter.args": ["--line-length", "200"],
-  "html.format.wrapLineLength": 200,
-  "prettier.printWidth": 200,
-  "prettier.trailingComma": "all",
-  "javascript.suggestionActions.enabled": false,
-  "typescript.suggestionActions.enabled": false
+	"workbench.startupEditor": "none",
+	"files.autoSave": "afterDelay",
+	"files.autoSaveDelay": 500,
+	"workbench.iconTheme": "vscode-icons",
+	"workbench.colorTheme": "Noctis High Contrast",
+	"prettier.useTabs": true,
+	"prettier.tabWidth": 3,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"notebook.defaultFormatter": "esbenp.prettier-vscode",
+	"prettier.bracketSameLine": true,
+	"editor.defaultFoldingRangeProvider": "esbenp.prettier-vscode",
+	"editor.formatOnPaste": true,
+	"editor.formatOnSave": true,
+	"editor.formatOnType": true,
+	"[python]": {
+		"editor.defaultFormatter": "ms-python.black-formatter"
+	},
+	"black-formatter.args": ["--line-length", "200"],
+	"html.format.wrapLineLength": 200,
+	"prettier.printWidth": 200,
+	"prettier.trailingComma": "all",
+	"javascript.suggestionActions.enabled": false,
+	"typescript.suggestionActions.enabled": false
 }

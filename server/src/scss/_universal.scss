@@ -1,19 +1,19 @@
 .script {
-  display: none;
+	display: none;
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  &::before {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  &::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	&::before {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+	&::after {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
 }

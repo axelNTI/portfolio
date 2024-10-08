@@ -1,43 +1,42 @@
 <html lang="{{lang.language}}">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <script src="js/jquery-3.7.1.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script src="js/jquery-3.7.1.min.js"></script>
+		<script src="js/bootstrap.bundle.min.js"></script>
 
-    <title>{{lang.portfolio}}</title>
+		<title>{{lang.portfolio}}</title>
 
-    <link rel="stylesheet" href="scss/index.scss" />
+		<link rel="stylesheet" href="scss/index.scss" />
 
-    <script defer="true" src="ts/universal.ts"></script>
-    <script defer="true" src="ts/index.ts"></script>
-  </head>
-  <body>
-    <img date-src="assets/images/image.png" alt="" />
-    <header>
-      <h1>
-        {{lang.portfolio}}
-      </h1>
-    </header>
-    <main>
-
-      {{#each data.projects}}
-        <h2>{{translate this.name}}</h2>
-        <p>{{@root.lang.description}}: {{translate this.description}}</p>
-        <p>{{@root.lang.type}}: {{translate this.type}}</p>
-        {{#if this.course}}
-          <p>{{@root.lang.course}}: {{translate this.course}}</p>
-        {{/if}}
-        <p>{{@root.lang.technologies}}:</p>
-        <ul>
-          {{#each this.technologies}}
-            <li>{{translate this}}</li>
-          {{/each}}
-        </ul>
-      {{/each}}
-    </main>
-    <footer>
-    </footer>
-  </body>
+		<script defer="true" src="ts/universal.ts"></script>
+		<script defer="true" src="ts/index.ts"></script>
+	</head>
+	<body>
+		<img date-src="assets/images/image.png" alt="" />
+		<header>
+			<h1>
+				{{lang.portfolio}}
+			</h1>
+		</header>
+		<main>
+			{{#each data.projects}}
+				<h2>{{translate this.name}}</h2>
+				<p>{{@root.lang.description}}: {{translate this.description}}</p>
+				<p>{{@root.lang.type}}: {{translate this.type}}</p>
+				{{#if this.course}}
+					<p>{{@root.lang.course}}: {{translate this.course}}</p>
+				{{/if}}
+				<p>{{@root.lang.technologies}}:</p>
+				<ul>
+					{{#each this.technologies}}
+						<li>{{translate this}}</li>
+					{{/each}}
+				</ul>
+			{{/each}}
+		</main>
+		<footer>
+		</footer>
+	</body>
 </html>
