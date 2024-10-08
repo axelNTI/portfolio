@@ -6,26 +6,25 @@ const path = require("path");
 const cookies = require("cookie-parser");
 const yaml = require("js-yaml");
 const fs = require("fs");
-const hbs = require("hbs");
+const handlebars = require("express-handlebars");
 const sass = require("sass");
 const ts = require("typescript");
 const sharp = require("sharp");
 const _ = require("lodash");
+const bcrypt = require("bcryptjs");
 
-const handlebars = require("./helpers/handlebars.ts");
+const handlebarsHelpers = require("./helpers/handlebars.ts");
 
-hbs.registerHelper("translate", handlebars.translate);
 
 const app = express();
 dotenv.config({ path: path.join(__dirname, ".env") });
 
-const sessionParser = session({
-	secret: process.env.EXPRESS_SESSION_SECRET,
-	resave: false,
-	saveUninitialized: false,
-	cookie: { secure: false }, // Change to true when using HTTPS
+const hbs = handlebars.create({
+	extname: "hbs",
+	helpers: handlebarsHelpers,
 });
 
+app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
 
@@ -33,9 +32,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookies());
-app.use(sessionParser);
+app.use(
+	session({
+		secret: process.env.SESSION_SECRET,
+		resave: false,
+		saveUninitialized: false,
+		cookie: { secure: false }, // Change to true when using HTTPS
+	}),
+);
 
-const acceptedLanguages = fs.readdirSync(path.join(__dirname, "./locale")).map((file) => file.split(".")[0]);
+const acceptedLanguages = fs.readdirSync(path.join(__dirname, "src", "sql", "./locale")).map((file) => file.split(".")[0]);
 
 const renderPage = (req, res, page) => {
 	console.log(req.session.viewport);
@@ -112,34 +118,5 @@ const wss = new websocket.Server({ noServer: true });
 const connections = new Map();
 
 wss.on("connection", (ws, req) => {
-	sessionParser(req, {}, () => {
-		const sessionID = req.sessionID || req.session.id;
-
-		const query = req.url.split("?");
-		query.shift();
-		const params = {};
-		query.forEach((item) => {
-			const [key, value] = item.split("=");
-			params[key] = value;
-		});
-
-		connections.set(ws, { sessionID, params, session: req.session });
-
-		ws.on("close", () => {
-			connections.delete(ws);
-		});
-	});
-});
-
-server.on("upgrade", (req, socket, head) => {
-	sessionParser(req, {}, () => {
-		if (!req.session) {
-			socket.destroy();
-			return;
-		}
-
-		wss.handleUpgrade(req, socket, head, (ws) => {
-			wss.emit("connection", ws, req);
-		});
-	});
+	console.log(ws.upgradeReq.url);
 });
