@@ -2,7 +2,12 @@
 	"name": "portfolio",
 	"version": "1.0.0",
 	"main": "server.ts",
-	"scripts": {},
+	"type": "module",
+	"scripts": {
+		"start": "node --require ts-node/register server/server.ts",
+		"compile": "node --require ts-node/register scripts/hbs-to-scss-compiler.ts",
+		"generate": "node --experimental-loader ts-node/esm scripts/secret-generator.ts"
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/axelNTI/portfolio.git"
@@ -18,11 +23,12 @@
 		"@types/bootstrap": "^5.2.10",
 		"@types/jquery": "^3.5.31",
 		"bcryptjs": "^2.4.3",
-		"cookie-parser": "^1.4.6",
+		"cookie-parser": "^1.4.7",
 		"dotenv": "^16.4.5",
-		"express": "^5.0.0",
+		"express": "^5.0.1",
 		"express-handlebars": "^8.0.1",
-		"express-session": "^1.18.0",
+		"express-session": "^1.18.1",
+		"glob": "^11.0.0",
 		"js-yaml": "^4.1.0",
 		"lodash": "^4.17.21",
 		"mysql2": "^3.11.3",
@@ -32,9 +38,10 @@
 		"ws": "^8.18.0"
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.47.2",
+		"@playwright/test": "^1.48.0",
 		"@types/lodash": "^4.17.10",
-		"@types/node": "^22.7.4",
-		"typescript": "^5.6.2"
+		"@types/node": "^22.7.5",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.6.3"
 	}
 }
