@@ -55,7 +55,7 @@ const renderPage = (req: Request, res: Response, page: string) => {
 	res.render(page, {
 		query: req.query,
 		session: req.session,
-		lang: returnLang,
+		locale: returnLang,
 		data: returnData,
 	});
 };

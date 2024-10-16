@@ -1,10 +1,10 @@
-<html lang="{{lang.language}}">
+<html lang="{{locale.language}}">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script src="js/jquery-3.7.1.min.js"></script>
 
-		<title>{{lang.portfolio}}</title>
+		<title>{{locale.portfolio}}</title>
 
 		<link rel="stylesheet" href="scss/index.scss" />
 
@@ -12,29 +12,42 @@
 		<script defer="true" src="ts/index.ts"></script>
 	</head>
 	<body>
-		<img date-src="assets/images/image.png" alt="" />
 		<header>
 			<h1>
-				{{lang.portfolio}}
+				{{locale.portfolio}}
 			</h1>
 		</header>
 		<main>
-			{{#each data.projects}}
-				<section>
-					<h2>{{translate this.name}}</h2>
-					<p>{{@root.lang.description}}: {{translate this.description}}</p>
-					<p>{{@root.lang.type}}: {{translate this.type}}</p>
-					{{#if this.course}}
-						<p>{{@root.lang.course}}: {{translate this.course}}</p>
-					{{/if}}
-					<p>{{@root.lang.technologies}}:</p>
-					<ul>
-						{{#each this.technologies}}
-							<li>{{translate this}}</li>
-						{{/each}}
-					</ul>
-				</section>
-			{{/each}}
+			<section>
+				<h2>{{locale.projects}}</h2>
+				{{#each data.projects}}
+					<section>
+						<h3>{{translate this.name}}</h3>
+						<p>{{@root.locale.description}}: {{translate this.description}}</p>
+						<p>{{@root.locale.type}}: {{translate this.type}}</p>
+						{{#if this.course}}
+							<p>{{@root.locale.course}}: {{translate this.course}}</p>
+						{{/if}}
+						<p>{{@root.locale.technologies}}:</p>
+						<ul>
+							{{#each this.technologies}}
+								<li>{{translate this}}</li>
+							{{/each}}
+						</ul>
+					</section>
+				{{/each}}
+			</section>
+			<section>
+				<h2>{{locale.certifications}}</h2>
+				{{#each data.certifications}}
+					<section>
+						<h3>{{translate this.name}}</h3>
+						<p>{{@root.locale.description}}: {{translate this.description}}</p>
+						<p>{{@root.locale.issuer}}: {{translate this.issuer}}</p>
+						<p>{{@root.locale.date}}: {{this.date}}</p>
+					</section>
+				{{/each}}
+			</section>
 		</main>
 		<footer>
 		</footer>

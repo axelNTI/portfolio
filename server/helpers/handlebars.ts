@@ -1,4 +1,4 @@
 export const translate = (key, options) => {
-	const lang = options.data.root.lang;
-	return lang[key] || key;
+	const locale = options.data.root.locale;
+	return locale[key] || key;
 };
