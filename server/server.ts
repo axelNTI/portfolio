@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import session from "express-session";
 import dotenv from "dotenv";
-import websocket from "ws";
+// import WebSocket from "ws"; // Import the default export
 import path from "path";
 import cookies from "cookie-parser";
 import yaml from "js-yaml";
@@ -12,8 +12,11 @@ import ts from "typescript";
 import sharp from "sharp";
 import _ from "lodash";
 import bcrypt from "bcryptjs";
+import { fileURLToPath } from "url";
 
 import * as handlebarsHelpers from "./helpers/handlebars";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 dotenv.config({ path: path.join(__dirname, "..", ".env") });
 
@@ -45,13 +48,11 @@ app.use(
 const acceptedLanguages = fs.readdirSync(path.join(__dirname, "src", "locale")).map((file: string) => file.split(".")[0]);
 
 const renderPage = (req: Request, res: Response, page: string) => {
-	console.log(req.session?.viewport);
 	const userLang = req.acceptsLanguages(...acceptedLanguages) || "en";
 	const langFile = fs.readFileSync(path.join(__dirname, `./src/locale/${userLang}.yml`), "utf8");
 	const returnLang = yaml.load(langFile) as Record<string, any>;
 	const dataFile = fs.readFileSync(path.join(__dirname, "./src/data/data.yml"), "utf8");
 	const returnData = yaml.load(dataFile) as Record<string, any>;
-
 	res.render(page, {
 		query: req.query,
 		session: req.session,
@@ -60,9 +61,9 @@ const renderPage = (req: Request, res: Response, page: string) => {
 	});
 };
 
-app.get("/ts/:file", (req: Request, res: Response) => {
+app.get("/src/ts/:file", (req: Request, res: Response) => {
 	const file = req.params.file;
-	const tsFile = fs.readFileSync(path.join(__dirname, `./ts/${file}`), "utf8");
+	const tsFile = fs.readFileSync(path.join(__dirname, "src", "ts", file), "utf8");
 	const options: ts.TranspileOptions = {
 		compilerOptions: {
 			module: ts.ModuleKind.CommonJS,
@@ -74,9 +75,9 @@ app.get("/ts/:file", (req: Request, res: Response) => {
 	res.send(result.outputText);
 });
 
-app.get("/scss/:file", (req: Request, res: Response) => {
+app.get("/src/scss/:file", (req: Request, res: Response) => {
 	const file = req.params.file;
-	const scssFile = fs.readFileSync(path.join(__dirname, `./scss/${file}`), "utf8");
+	const scssFile = fs.readFileSync(path.join(__dirname, "src", "scss", file), "utf8");
 	const result = sass.compileString(scssFile, {
 		sourceMap: true,
 		loadPaths: [path.join(__dirname, "scss")],
@@ -86,8 +87,6 @@ app.get("/scss/:file", (req: Request, res: Response) => {
 });
 
 app.get("/assets/images/:file", (req: Request, res: Response) => {
-	console.log("Image request received.");
-	console.log(req.session?.viewport);
 	// Get the users viewport size and the image's vw and vh sizes.
 });
 
@@ -126,9 +125,21 @@ const server = app.listen(4000, () => {
 	console.log("Server running at http://localhost:4000");
 });
 
-const wss = new websocket.Server({ noServer: true });
-const connections = new Map();
 
-wss.on("connection", (ws: websocket, req: Request) => {
-	console.log(req.url);
+import { WebSocketServer } from "ws"; 
+
+const wss = new WebSocketServer({ server });
+
+wss.on("connection", (ws: WebSocket) => {
+	console.log("New client connected");
+
+	ws.addEventListener("message", (event) => {
+		const message = event.data as string;
+		console.log(`Received message: ${message}`);
+		ws.send(`Server received your message: ${message}`);
+	});
+
+	ws.addEventListener("close", () => {
+		console.log("Client disconnected");
+	});
 });

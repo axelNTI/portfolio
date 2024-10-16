@@ -1,6 +1,9 @@
 {
 	"compilerOptions": {
-      "esModuleInterop": true,
+		"module": "ESNext",
+		"esModuleInterop": true,
+		"moduleResolution": "Node",
+		"forceConsistentCasingInFileNames": true,
 		"typeRoots": ["./types", "./node_modules/@types"]
-	}
+	},
 }
