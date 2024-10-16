@@ -22,18 +22,20 @@
 		</header>
 		<main>
 			{{#each data.projects}}
-				<h2>{{translate this.name}}</h2>
-				<p>{{@root.lang.description}}: {{translate this.description}}</p>
-				<p>{{@root.lang.type}}: {{translate this.type}}</p>
-				{{#if this.course}}
-					<p>{{@root.lang.course}}: {{translate this.course}}</p>
-				{{/if}}
-				<p>{{@root.lang.technologies}}:</p>
-				<ul>
-					{{#each this.technologies}}
-						<li>{{translate this}}</li>
-					{{/each}}
-				</ul>
+				<section>
+					<h2>{{translate this.name}}</h2>
+					<p>{{@root.lang.description}}: {{translate this.description}}</p>
+					<p>{{@root.lang.type}}: {{translate this.type}}</p>
+					{{#if this.course}}
+						<p>{{@root.lang.course}}: {{translate this.course}}</p>
+					{{/if}}
+					<p>{{@root.lang.technologies}}:</p>
+					<ul>
+						{{#each this.technologies}}
+							<li>{{translate this}}</li>
+						{{/each}}
+					</ul>
+				</section>
 			{{/each}}
 		</main>
 		<footer>
