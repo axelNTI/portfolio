@@ -19,7 +19,6 @@
 	"dependencies": {
 		"@playwright/test": "^1.48.0",
 		"@types/bcryptjs": "^2.4.6",
-		"@types/bootstrap": "^5.2.10",
 		"@types/cookie-parser": "^1.4.7",
 		"@types/express": "^5.0.0",
 		"@types/express-session": "^1.18.0",
