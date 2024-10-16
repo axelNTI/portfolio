@@ -1,1 +1,9 @@
 @use "variables";
+@use "classes";
+@use "functions";
+@use "mixin";
+
+body {
+	& > main {
+	}
+}
