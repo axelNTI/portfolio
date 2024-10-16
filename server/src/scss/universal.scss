@@ -1,17 +1,17 @@
 @use "variables";
 
-* {
+@mixin reset() {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+}
+
+* {
+	@include reset();
 	&::before {
-		box-sizing: border-box;
-		margin: 0;
-		padding: 0;
+		@include reset();
 	}
 	&::after {
-		box-sizing: border-box;
-		margin: 0;
-		padding: 0;
+		@include reset();
 	}
 }

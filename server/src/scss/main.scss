@@ -1,9 +1,26 @@
 @use "variables";
-@use "classes";
-@use "functions";
 @use "mixin";
 
 body {
+	@include mixin.background(variables.$color-secondary);
 	& > main {
+		& > h1 {
+		}
+		& > section {
+			& > h2 {
+			}
+			& > section {
+				@include mixin.background(variables.$color-primary);
+				& > h3 {
+				}
+				& > P {
+				}
+				& > ul {
+					& > li {
+						@include mixin.background(variables.$color-success);
+					}
+				}
+			}
+		}
 	}
 }

@@ -1,2 +1,12 @@
 @use "variables";
-@use "classes";
+
+@mixin flex($direction: row, $align: stretch, $wrap: nowrap) {
+	display: flex;
+	flex-direction: $direction;
+	align-items: $align;
+	flex-wrap: $wrap;
+}
+
+@mixin background($color) {
+	background-color: $color;
+}
