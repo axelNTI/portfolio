@@ -39,12 +39,16 @@
 			</section>
 			<section>
 				<h2>{{locale.certifications}}</h2>
-				{{#each data.certifications}}
+				{{#each data.certification_categories}}
 					<section>
-						<h3>{{translate this.name}}</h3>
-						<p>{{@root.locale.description}}: {{translate this.description}}</p>
-						<p>{{@root.locale.issuer}}: {{translate this.issuer}}</p>
-						<p>{{@root.locale.date}}: {{this.date}}</p>
+						<h3>{{this.category}}</h3>
+						{{#each this.certifications}}
+							<section>
+								<h4>{{this.name}}</h4>
+								<p>{{@root.locale.score}}: {{this.score}} / {{this.max_score}}</p>
+								<p>{{@root.locale.date}}: {{this.date}}</p>
+							</section>
+						{{/each}}
 					</section>
 				{{/each}}
 			</section>
