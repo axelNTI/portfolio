@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { query, Request, Response } from "express";
 import session from "express-session";
 import dotenv from "dotenv";
 import { WebSocketServer } from "ws";
@@ -13,6 +13,8 @@ import sharp from "sharp";
 import _ from "lodash";
 import bcrypt from "bcryptjs";
 import { fileURLToPath } from "url";
+import xss from "xss";
+import Joi, { x } from "joi";
 
 import * as handlebarsHelpers from "./helpers/handlebars";
 
@@ -56,18 +58,35 @@ app.use(
 const acceptedLanguages = fs.readdirSync(path.join(__dirname, "src", "locale")).map((file: string) => file.split(".")[0]);
 
 const renderPage = (req: Request, res: Response, page: string) => {
+	const schema = Joi.object({
+		query: Joi.object().required(),
+		session: Joi.object().required(),
+	});
+
 	const userLang = req.acceptsLanguages(...acceptedLanguages) || "en";
-	const langFile = fs.readFileSync(path.join(__dirname, "src", "locale", `${userLang}.yml`), "utf8");
-	const returnLang = yaml.load(langFile) as Record<string, any>;
-	const dataFile = fs.readFileSync(path.join(__dirname, "src", "data", "data.yml"), "utf8");
-	const returnData = yaml.load(dataFile) as Record<string, any>;
-	res.render(page, {
+	const locale = yaml.load(fs.readFileSync(path.join(__dirname, "src", "locale", `${userLang}.yml`), "utf8"));
+	const data = yaml.load(fs.readFileSync(path.join(__dirname, "src", "data", "data.yml"), "utf8"))
+
+	const { error, value } = schema.validate({
 		query: req.query,
 		session: req.session,
-		locale: returnLang,
-		data: returnData,
+	});
+
+	if (error) {
+		console.error(error);
+		logStream.write(`${new Date().toISOString()} - ${error}\n`);
+		return res.status(400).send("Bad request.");
+	}
+
+
+	res.render(page, {
+		query: xss(value.query),
+		session: xss(value.session),
+		locale: locale, 
+		data: data, 
 	});
 };
+
 
 app.get("/ts/:file", (req: Request, res: Response) => {
 	const file = req.params.file;
