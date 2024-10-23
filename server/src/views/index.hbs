@@ -2,14 +2,16 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<noscript>
+			<meta http-equiv="refresh" content="0;url=/noscript?page=index" />
+		</noscript>
 		<script src="js/jquery-3.7.1.min.js"></script>
 
 		<title>{{locale.portfolio}}</title>
 
 		<link rel="stylesheet" href="scss/index.scss" />
 
-		<script defer="true" src="ts/universal.ts"></script>
-		<script defer="true" src="ts/index.ts"></script>
+		<script defer="true" src="js/portfolio.js"></script>
 	</head>
 	<body>
 		<header>
@@ -18,6 +20,32 @@
 			</h1>
 		</header>
 		<main>
+			<aside>
+				<h2>{{locale.about_me}}</h2>
+				<p>{{locale.name}}: {{data.name}}</p>
+				<p>{{locale.email}}: {{data.email}}</p>
+				<p>{{locale.phone}}: {{data.phone}}</p>
+				<p>{{locale.address}}: {{data.address}}</p>
+				<p>{{locale.summary}}: {{translate data.summary}}</p>
+				<p>{{locale.languages}}:</p>
+				<ul>
+					{{#each data.languages}}
+						<li>{{translate this}}</li>
+					{{/each}}
+				</ul>
+				<p>{{locale.skills}}:</p>
+				<ul>
+					{{#each data.skills}}
+						<li>{{translate this}}</li>
+					{{/each}}
+				</ul>
+				<p>{{locale.hobbies}}:</p>
+				<ul>
+					{{#each data.hobbies}}
+						<li>{{translate this}}</li>
+					{{/each}}
+				</ul>
+			</aside>
 			<section>
 				<h2>{{locale.projects}}</h2>
 				{{#each data.projects}}

@@ -2,22 +2,24 @@
 @use "mixin";
 
 body {
-	@include mixin.background(variables.$color-secondary);
+	@include mixin.background(variables.$color-background);
 	& > main {
 		& > h1 {
+		}
+		& > aside {
 		}
 		& > section {
 			& > h2 {
 			}
 			& > section {
-				@include mixin.background(variables.$color-primary);
+				@include mixin.background(variables.$color-light);
 				& > h3 {
 				}
 				& > P {
 				}
 				& > ul {
 					& > li {
-						@include mixin.background(variables.$color-success);
+						@include mixin.background(variables.$color-accent);
 					}
 				}
 			}
