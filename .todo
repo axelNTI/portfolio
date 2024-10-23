@@ -2,5 +2,4 @@
 
 ---
 
--  Write a script that takes the element structure of all handlebars files and outputs the structure to an SCSS-file
 -  Use npm run scripts to have the secret generator generate the secret and apply it to the .env file

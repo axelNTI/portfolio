@@ -2,27 +2,35 @@
 @use "mixin";
 
 body {
-	@include mixin.background(variables.$color-background);
-	& > main {
+	& > header {
 		& > h1 {
 		}
+	}
+	& > main {
+		@include mixin.grid;
 		& > aside {
+			& > p {
+			}
+			& > ul {
+				& > li {
+				}
+			}
 		}
 		& > section {
 			& > h2 {
 			}
 			& > section {
-				@include mixin.background(variables.$color-light);
 				& > h3 {
 				}
 				& > P {
 				}
 				& > ul {
 					& > li {
-						@include mixin.background(variables.$color-accent);
 					}
 				}
 			}
 		}
+	}
+	& > footer {
 	}
 }

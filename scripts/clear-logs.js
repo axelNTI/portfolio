@@ -1,5 +1,4 @@
-// Script to clear logs in server/logs directory if there are no errors in them.
-
+// Script to clear logs in server/logs directory that are empty.
 const fs = require("fs");
 const path = require("path");
 
@@ -23,7 +22,7 @@ fs.readdir(logsDir, (err, files) => {
 				return;
 			}
 
-			if (!data.length) {
+			if (data.length === 0) {
 				fs.unlink(path.join(logsDir, file), (err) => {
 					if (err) {
 						console.error(err);

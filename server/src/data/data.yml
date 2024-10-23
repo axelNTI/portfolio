@@ -33,3 +33,30 @@ certification_categories:
           score: 720
           max_score: 1000
           date: "2024-05-07"
+
+name: "Axel Thornberg"
+email: "taxel@thornberg.se"
+phone_number: "+46 79-342 10 39"
+languages:
+   - language: "swedish"
+     proficiency: "native"
+   - language: "english"
+     proficiency: "fluent"
+   - language: "german"
+     proficiency: "intermediate"
+
+skills:
+   - skill: "HTML"
+   - skill: "CSS"
+   - skill: "JavaScript"
+   - skill: "Python"
+   - skill: "MySQL"
+   - skill: "Express"
+   - skill: "Handlebars"
+   - skill: "SCSS"
+   - skill: "JQuery"
+   - skill: "Bootstrap"
+   - skill: "Node.js"
+   - skill: "yaml"
+   - skill: "Playwright Python"
+   - skill: "Github Actions"

@@ -10,3 +10,8 @@
 @mixin background($color) {
 	background-color: $color;
 }
+
+@mixin grid {
+	display: grid;
+}
+

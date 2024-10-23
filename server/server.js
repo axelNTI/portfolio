@@ -3,7 +3,7 @@ const session = require("express-session");
 const dotenv = require("dotenv");
 const { WebSocketServer } = require("ws");
 const path = require("path");
-const cookies = require("cookie-parser");
+const cookies = require("cookie-parser"); // Imported but not used in this snippet
 const yaml = require("js-yaml");
 const fs = require("fs");
 const { engine: handlebars } = require("express-handlebars");
@@ -41,7 +41,7 @@ app.set("views", path.join(__dirname, "src", "views"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "public")));
-app.use(cookies());
+// app.use(cookies());
 app.use(
 	session({
 		secret: process.env.SESSION_SECRET,
