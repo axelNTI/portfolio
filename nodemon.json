@@ -1,7 +1,7 @@
 {
 	"verbose": true,
-	"watch": ["server", "public", "nodemon.json"],
+	"watch": ["server", "nodemon.json"],
 	"ext": "*",
-	"ignore": ["server/logs"],
+	"ignore": ["server/logs", "server/src/**/*"],
 	"exec": "npm run clear && cls && node server/server.js"
 }
